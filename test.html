@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Invitation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #ff4081;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #e91e63;
+        }
+        .whatsapp {
+            background: #25d366;
+        }
+        .whatsapp:hover {
+            background: #1ebe5d;
+        }
+        .invitation {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #ffe0e0;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Send a Date Invitation 💌</h2>
+        <input type="text" id="name" placeholder="Their Name" required>
+        <input type="date" id="date" required>
+        <input type="time" id="time" required>
+        <textarea id="message" placeholder="Your sweet message..." required></textarea>
+        <button onclick="sendInvitation()">Send Invitation</button>
+        <button class="whatsapp" onclick="sendWhatsApp()">Send via WhatsApp 📲</button>
+
+        <div class="invitation" id="invitationBox">
+            <h3>🌸 Date Invitation 🌸</h3>
+            <p><strong>To:</strong> <span id="invName"></span></p>
+            <p><strong>When:</strong> <span id="invDate"></span> at <span id="invTime"></span></p>
+            <p><em>"<span id="invMessage"></span>"</em></p>
+        </div>
+    </div>
+
+    <script>
+        function sendInvitation() {
+            let name = document.getElementById("name").value;
+            let date = document.getElementById("date").value;
+            let time = document.getElementById("time").value;
+            let message = document.getElementById("message").value;
+
+            if (!name || !date || !time || !message) {
+                alert("Please fill in all fields!");
+                return;
+            }
+
+            document.getElementById("invName").innerText = name;
+            document.getElementById("invDate").innerText = date;
+            document.getElementById("invTime").innerText = time;
+            document.getElementById("invMessage").innerText = message;
+
+            document.getElementById("invitationBox").style.display = "block";
+        }
+
+        function sendWhatsApp() {
+            let name = document.getElementById("name").value;
+            let date = document.getElementById("date").value;
+            let time = document.getElementById("time").value;
+            let message = document.getElementById("message").value;
+
+            if (!name || !date || !time || !message) {
+                alert("Please fill in all fields!");
+                return;
+            }
+
+            let phone = "60136260311";  // Replace with the actual phone number
+            let text = `💌 *Date Invitation!* 💌\n\nHey ${name},\n\n📅 *Date:* ${date}\n⏰ *Time:* ${time}\n\n💬 "${message}"\n\nHope you can make it! 😊`;
+
+            let url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(text)}`;
+            window.open(url, "_blank");
+        }
+    </script>
+
+</body>
+</html>
